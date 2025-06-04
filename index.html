@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hotel Royal Stay</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    header {
+      background: url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb') no-repeat center center/cover;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-shadow: 2px 2px 4px #000;
+    }
+
+    header h1 {
+      font-size: 3em;
+    }
+
+    nav {
+      background-color: #222;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #f8b400;
+    }
+
+    section {
+      padding: 30px;
+    }
+
+    .rooms {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .room {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+
+    .room img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .room h3 {
+      margin-top: 10px;
+      color: #333;
+    }
+
+    .room p {
+      font-size: 0.9em;
+      margin-top: 5px;
+    }
+
+    form {
+      background-color: white;
+      padding: 20px;
+      max-width: 500px;
+      margin: 30px auto;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    }
+
+    form h2 {
+      margin-bottom: 20px;
+    }
+
+    form input, form select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    form button {
+      background-color: #f8b400;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    form button:hover {
+      background-color: #d98e00;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #222;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Hotel Royal Stay</h1>
+  </header>
+
+  <nav>
+    <a href="#rooms">Rooms</a>
+    <a href="#booking">Booking</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="rooms">
+    <h2 style="text-align:center; margin-bottom: 20px;">Our Rooms</h2>
+    <div class="rooms">
+      <div class="room">
+        <img src="https://source.unsplash.com/300x200/?hotel,room" alt="Deluxe Room" />
+        <h3>Deluxe Room</h3>
+        <p>Spacious room with king-size bed, free Wi-Fi, and a city view.</p>
+      </div>
+      <div class="room">
+        <img src="https://source.unsplash.com/300x200/?bedroom" alt="Standard Room" />
+        <h3>Standard Room</h3>
+        <p>Cozy room with all basic amenities for a comfortable stay.</p>
+      </div>
+      <div class="room">
+        <img src="https://source.unsplash.com/300x200/?suite" alt="Luxury Suite" />
+        <h3>Luxury Suite</h3>
+        <p>Experience royal treatment with premium facilities and décor.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="booking">
+    <form onsubmit="submitBooking(event)">
+      <h2>Book Your Stay</h2>
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Email Address" required />
+      <select id="roomType" required>
+        <option value="">Select Room Type</option>
+        <option value="Standard">Standard Room</option>
+        <option value="Deluxe">Deluxe Room</option>
+        <option value="Suite">Luxury Suite</option>
+      </select>
+      <input type="date" id="checkin" required />
+      <input type="date" id="checkout" required />
+      <button type="submit">Book Now</button>
+    </form>
+  </section>
+
+  <footer id="contact">
+    <p>Contact us: royalstay@hotel.com | +91-9876543210</p>
+    <p>© 2025 Hotel Royal Stay. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function submitBooking(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      const room = document.getElementById('roomType').value;
+      alert("Thank you, " + name + "! Your " + room + " has been booked.");
+      document.querySelector('form').reset();
+    }
+  </script>
+
+</body>
+</html>
+
