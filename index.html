@@ -5,124 +5,95 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hotel Royal Stay</title>
   <style>
-    * {
-      margin:0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Segoe UI", sans-serif;
-    }
-
     body {
-      background-color: #f4f4f4;
-      color: #222;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
     }
 
     header {
-      background: url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb') no-repeat center center/cover;
-      height: 500px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: black;
-      text-shadow: 5px 5px 7px #000;
-    }
-
-    header h1 {
-      font-size: 6em;
+      background-color: #333;
+      color: white;
+      padding: 20px;
+      text-align: center;
     }
 
     nav {
-      background-color: #222;
-      padding: 12px;
+      background-color: #f4f4f4;
+      padding: 10px;
       text-align: center;
     }
 
     nav a {
-      color: white;
-      margin: 0 16px;
+      margin: 0 15px;
       text-decoration: none;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      color: #f8b400;
+      color: #333;
     }
 
     section {
-      padding: 30px;
+      padding: 40px 20px;
     }
 
     .rooms {
       display: flex;
-      gap: 40px;
       flex-wrap: wrap;
       justify-content: center;
+      gap: 20px;
     }
 
-    .room {
-      background: white;
-      padding: 15px;
-      border-radius: 15px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      width: 400px;
+    .room-card {
+      border: 1px solid #ccc;
+      padding: 20px;
+      width: 250px;
+      border-radius: 5px;
+      text-align: center;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
     }
 
-    .room img {
-      width: 300%;
-      border-radius: 30px;
-    }
-
-    .room h3 {
-      margin-top: 20px;
-      color: #333;
-    }
-
-    .room p {
-      font-size: 0.9em;
-      margin-top: 10px;
+    .room-card h3 {
+      margin-top: 0;
     }
 
     form {
-      background-color: white;
-      padding: 40px;
       max-width: 500px;
-      margin: 30px auto;
-      border-radius: 15px;
-      box-shadow: 0 0 0px rgba(0, 0, 0, 0.1);
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
     }
 
-    form h2 {
-      margin-bottom: 20px;
+    input, select, button {
+      padding: 10px;
+      font-size: 16px;
     }
 
-    form input, form select {
-      width: 100%;
-      padding: 30px;
-      margin-top: 20px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    form button {
-      background-color: #f7b400;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 10px;
+    button {
+      background-color: #333;
       color: white;
-      font-weight: italic;
+      border: none;
       cursor: pointer;
     }
 
-    form button:hover {
-      background-color: #d56e00;
+    button:hover {
+      background-color: #555;
+    }
+
+    #booking-summary {
+      margin-top: 30px;
+      text-align: center;
+      background: #f0f8ff;
+      padding: 20px;
+      border-radius: 5px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     footer {
+      background-color: #333;
+      color: white;
       text-align: center;
-      padding: 40px;
-      background: #666;
-      color: black;
+      padding: 20px;
     }
   </style>
 </head>
@@ -141,26 +112,26 @@
   <section id="rooms">
     <h2 style="text-align:center; margin-bottom: 40px;">Our Rooms</h2>
     <div class="rooms">
-      <div class="room">
-        <img src="https://source.unsplash.com/400x200/?hotel,room" alt="Deluxe Room" />
-        <h3>Deluxe Room</h3>
-        <p>Spacious room with king-size bed, free Wi-Fi, and a city view.</p>
-      </div>
-      <div class="room">
-        <img src="https://source.unsplash.com/400x200/?bedroom" alt="Standard Room" />
+      <div class="room-card">
         <h3>Standard Room</h3>
-        <p>Cozy room with all basic amenities for a comfortable stay.</p>
+        <p>Comfortable and affordable. Perfect for a short stay.</p>
+        <p>₹2,500/night</p>
       </div>
-      <div class="room">
-        <img src="https://source.unsplash.com/400x200/?suite" alt="Luxury Suite" />
+      <div class="room-card">
+        <h3>Deluxe Room</h3>
+        <p>Spacious room with city view and premium amenities.</p>
+        <p>₹4,500/night</p>
+      </div>
+      <div class="room-card">
         <h3>Luxury Suite</h3>
-        <p>Experience royal treatment with premium facilities and décor.</p>
+        <p>Top-tier suite with luxury features and king-size bed.</p>
+        <p>₹7,500/night</p>
       </div>
     </div>
   </section>
 
   <section id="booking">
-    <form onsubmit="submitBooking(event)">
+    <form id="booking-form" onsubmit="return submitBooking(event)">
       <h2>Book Your Stay</h2>
       <input type="text" id="name" placeholder="Your Name" required />
       <input type="email" id="email" placeholder="Email Address" required />
@@ -174,6 +145,7 @@
       <input type="date" id="checkout" required />
       <button type="submit">Book Now</button>
     </form>
+    <div id="booking-summary"></div>
   </section>
 
   <footer id="contact">
@@ -184,10 +156,44 @@
   <script>
     function submitBooking(event) {
       event.preventDefault();
-      const name = document.getElementById('name').value;
-      const room = document.getElementById('roomType').value;
-      alert("Thank you, " + name + "! Your " + room + " has been booked.");
-      document.querySelector('form').reset();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const roomType = document.getElementById('roomType').value;
+      const checkin = document.getElementById('checkin').value;
+      const checkout = document.getElementById('checkout').value;
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const checkinDate = new Date(checkin);
+      const checkoutDate = new Date(checkout);
+
+      if (checkinDate < today) {
+        alert('Check-in date cannot be in the past.');
+        return false;
+      }
+
+      if (checkoutDate <= checkinDate) {
+        alert('Checkout date must be later than check-in date.');
+        return false;
+      }
+
+      const summary = `
+        <h3>Booking Summary</h3>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Room Type:</strong> ${roomType}</p>
+        <p><strong>Check-in:</strong> ${checkin}</p>
+        <p><strong>Checkout:</strong> ${checkout}</p>
+        <p style="color: green; font-weight: bold;">Your booking has been received! We look forward to hosting you.</p>
+      `;
+      document.getElementById('booking-summary').innerHTML = summary;
+
+      document.getElementById('booking-form').reset();
+      document.getElementById('booking-summary').scrollIntoView({ behavior: 'smooth' });
+
+      return false;
     }
   </script>
 
