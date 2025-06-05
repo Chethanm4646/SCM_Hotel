@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>i
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -124,6 +124,38 @@
       background: #666;
       color: black;
     }
+   <script>
+  function submitBooking(event) {
+    event.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const room = document.getElementById('roomType').value;
+    const checkin = document.getElementById('checkin').value;
+    const checkout = document.getElementById('checkout').value;
+
+    if (new Date(checkout) <= new Date(checkin)) {
+      alert("Check-out date must be after check-in date.");
+      return;
+    }
+
+    const confirmationMsg = `
+      Thank you, <strong>${name}</strong>!<br>
+      Your <strong>${room}</strong> has been booked from <strong>${checkin}</strong> to <strong>${checkout}</strong>.<br>
+      Confirmation sent to <strong>${email}</strong>.
+    `;
+
+    document.getElementById('confirmation').style.display = "block";
+    document.getElementById('confirmation').innerHTML = confirmationMsg;
+
+    // Optional: Save to localStorage
+    const bookingData = { name, email, room, checkin, checkout };
+    localStorage.setItem("latestBooking", JSON.stringify(bookingData));
+
+    document.querySelector('form').reset();
+  }
+</script>
+
   </style>
 </head>
 <body>
