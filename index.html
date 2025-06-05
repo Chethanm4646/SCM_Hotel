@@ -1,4 +1,4 @@
-<!DOCTYPE html>i
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -6,7 +6,7 @@
   <title>Hotel Royal Stay</title>
   <style>
     * {
-      margin:0;
+      margin: 0;
       padding: 0;
       box-sizing: border-box;
       font-family: "Segoe UI", sans-serif;
@@ -68,7 +68,7 @@
     }
 
     .room img {
-      width: 300%;
+      width: 100%;
       border-radius: 30px;
     }
 
@@ -95,10 +95,11 @@
       margin-bottom: 20px;
     }
 
-    form input, form select {
+    form input,
+    form select {
       width: 100%;
-      padding: 30px;
-      margin-top: 20px;
+      padding: 15px;
+      margin-top: 10px;
       margin-bottom: 20px;
       border: 1px solid #ccc;
       border-radius: 5px;
@@ -110,7 +111,7 @@
       border: none;
       border-radius: 10px;
       color: white;
-      font-weight: italic;
+      font-style: italic;
       cursor: pointer;
     }
 
@@ -124,49 +125,46 @@
       background: #666;
       color: black;
     }
-   <script>
-  function submitBooking(event) {
-    event.preventDefault();
-    
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const room = document.getElementById('roomType').value;
-    const checkin = document.getElementById('checkin').value;
-    const checkout = document.getElementById('checkout').value;
 
-    if (new Date(checkout) <= new Date(checkin)) {
-      alert("Check-out date must be after check-in date.");
-      return;
+    h2, h3 {
+      color: #444;
+      font-weight: 600;
     }
 
-    const confirmationMsg = `
-      Thank you, <strong>${name}</strong>!<br>
-      Your <strong>${room}</strong> has been booked from <strong>${checkin}</strong> to <strong>${checkout}</strong>.<br>
-      Confirmation sent to <strong>${email}</strong>.
-    `;
+    form label {
+      font-size: 0.95em;
+      font-weight: 500;
+      margin-top: 10px;
+      display: block;
+    }
 
-    document.getElementById('confirmation').style.display = "block";
-    document.getElementById('confirmation').innerHTML = confirmationMsg;
+    /* Booking summary modal */
+    #summaryModal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+    }
 
-    // Optional: Save to localStorage
-    const bookingData = { name, email, room, checkin, checkout };
-    localStorage.setItem("latestBooking", JSON.stringify(bookingData));
+    #summaryModal .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 500px;
+      margin: 10% auto;
+      text-align: center;
+    }
 
-    document.querySelector('form').reset();
-  }
-</script>
-    h2, h3 {
-  color: #444;
-  font-weight: 600;
-}
-
-form label {
-  font-size: 0.95em;
-  font-weight: 500;
-  margin-top: 10px;
-  display: block;
-}
-
+    #summaryModal button {
+      background-color: #f7b400;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      margin-top: 20px;
+    }
 
   </style>
 </head>
@@ -205,33 +203,39 @@ form label {
 
   <section id="booking">
     <form onsubmit="submitBooking(event)">
-  <h2>Book Your Stay</h2>
+      <h2>Book Your Stay</h2>
 
-  <label for="name">Full Name</label>
-  <input type="text" id="name" placeholder="John Doe" required />
+      <label for="name">Full Name</label>
+      <input type="text" id="name" placeholder="John Doe" required />
 
-  <label for="email">Email Address</label>
-  <input type="email" id="email" placeholder="john@example.com" required />
+      <label for="email">Email Address</label>
+      <input type="email" id="email" placeholder="john@example.com" required />
 
-  <label for="roomType">Room Type</label>
-  <select id="roomType" required>
-    <option value="">-- Select --</option>
-    <option value="Standard Room">Standard Room</option>
-    <option value="Deluxe Room">Deluxe Room</option>
-    <option value="Luxury Suite">Luxury Suite</option>
-  </select>
+      <label for="roomType">Room Type</label>
+      <select id="roomType" required>
+        <option value="">-- Select --</option>
+        <option value="Standard Room">Standard Room</option>
+        <option value="Deluxe Room">Deluxe Room</option>
+        <option value="Luxury Suite">Luxury Suite</option>
+      </select>
 
-  <label for="checkin">Check-in Date</label>
-  <input type="date" id="checkin" required />
+      <label for="checkin">Check-in Date</label>
+      <input type="date" id="checkin" required />
 
-  <label for="checkout">Check-out Date</label>
-  <input type="date" id="checkout" required />
+      <label for="checkout">Check-out Date</label>
+      <input type="date" id="checkout" required />
 
-  <button type="submit">Book Now</button>
-</form>
+      <button type="submit">Book Now</button>
+    </form>
 
-<!-- Confirmation Box -->
-<div id="confirmation" class="alert" style="display:none;"></div>
+    <!-- Booking Summary Modal -->
+    <div id="summaryModal">
+      <div class="modal-content">
+        <h2>Booking Confirmed!</h2>
+        <p id="summaryText"></p>
+        <button onclick="closeModal()">Close</button>
+      </div>
+    </div>
 
   </section>
 
@@ -243,41 +247,45 @@ form label {
   <script>
     function submitBooking(event) {
       event.preventDefault();
-      const name = document.getElementById('name').value;
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
       const room = document.getElementById('roomType').value;
-      alert("Thank you, " + name + "! Your " + room + " has been booked.");
-      document.querySelector('form').reset();
+      const checkin = document.getElementById('checkin').value;
+      const checkout = document.getElementById('checkout').value;
+
+      if (new Date(checkin) >= new Date(checkout)) {
+        alert("Checkout date must be after check-in date.");
+        return;
+      }
+
+      const summaryText = `
+        <strong>Name:</strong> ${name}<br>
+        <strong>Email:</strong> ${email}<br>
+        <strong>Room Type:</strong> ${room}<br>
+        <strong>Check-in:</strong> ${checkin}<br>
+        <strong>Check-out:</strong> ${checkout}
+      `;
+
+      document.getElementById("summaryText").innerHTML = summaryText;
+      document.getElementById("summaryModal").style.display = "block";
+
+      // Save to local storage
+      const bookingData = { name, email, room, checkin, checkout };
+      localStorage.setItem("latestBooking", JSON.stringify(bookingData));
+
+      document.querySelector("form").reset();
     }
+
+    function closeModal() {
+      document.getElementById("summaryModal").style.display = "none";
+    }
+
     window.onload = () => {
-  const today = new Date().toISOString().split("T")[0];
-  document.getElementById("checkin").setAttribute("min", today);
-  document.getElementById("checkout").setAttribute("min", today);
-};
-
-
-function submitBooking(event) {
-  event.preventDefault();
-
-  const name = document.getElementById('name').value.trim();
-  const room = document.getElementById('roomType').value;
-  const checkin = document.getElementById('checkin').value;
-  const checkout = document.getElementById('checkout').value;
-
-  if (new Date(checkin) >= new Date(checkout)) {
-    alert("Checkout date must be after check-in date.");
-    return;
-  }
-
-  const msg = `Thank you, ${name}! Your booking for a ${room} from ${checkin} to ${checkout} has been confirmed.`;
-  const formMessage = document.getElementById("formMessage");
-
-  formMessage.textContent = msg;
-  formMessage.style.display = "block";
-
-  document.querySelector('form').reset();
-}
-
-
+      const today = new Date().toISOString().split("T")[0];
+      document.getElementById("checkin").setAttribute("min", today);
+      document.getElementById("checkout").setAttribute("min", today);
+    };
   </script>
 
 </body>
