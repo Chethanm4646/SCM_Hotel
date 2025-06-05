@@ -124,6 +124,7 @@
       background: #666;
       color: black;
     }
+<<<<<<< HEAD
    <script>
   function submitBooking(event) {
     event.preventDefault();
@@ -155,6 +156,7 @@
     document.querySelector('form').reset();
   }
 </script>
+=======
     h2, h3 {
   color: #444;
   font-weight: 600;
@@ -166,7 +168,7 @@ form label {
   margin-top: 10px;
   display: block;
 }
-
+>>>>>>> B2
 
   </style>
 </head>
@@ -253,30 +255,6 @@ form label {
   document.getElementById("checkin").setAttribute("min", today);
   document.getElementById("checkout").setAttribute("min", today);
 };
-
-
-function submitBooking(event) {
-  event.preventDefault();
-
-  const name = document.getElementById('name').value.trim();
-  const room = document.getElementById('roomType').value;
-  const checkin = document.getElementById('checkin').value;
-  const checkout = document.getElementById('checkout').value;
-
-  if (new Date(checkin) >= new Date(checkout)) {
-    alert("Checkout date must be after check-in date.");
-    return;
-  }
-
-  const msg = `Thank you, ${name}! Your booking for a ${room} from ${checkin} to ${checkout} has been confirmed.`;
-  const formMessage = document.getElementById("formMessage");
-
-  formMessage.textContent = msg;
-  formMessage.style.display = "block";
-
-  document.querySelector('form').reset();
-}
-
 
   </script>
 
