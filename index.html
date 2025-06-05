@@ -155,6 +155,18 @@
     document.querySelector('form').reset();
   }
 </script>
+    h2, h3 {
+  color: #444;
+  font-weight: 600;
+}
+
+form label {
+  font-size: 0.95em;
+  font-weight: 500;
+  margin-top: 10px;
+  display: block;
+}
+
 
   </style>
 </head>
@@ -193,19 +205,34 @@
 
   <section id="booking">
     <form onsubmit="submitBooking(event)">
-      <h2>Book Your Stay</h2>
-      <input type="text" id="name" placeholder="Your Name" required />
-      <input type="email" id="email" placeholder="Email Address" required />
-      <select id="roomType" required>
-        <option value="">Select Room Type</option>
-        <option value="Standard">Standard Room</option>
-        <option value="Deluxe">Deluxe Room</option>
-        <option value="Suite">Luxury Suite</option>
-      </select>
-      <input type="date" id="checkin" required />
-      <input type="date" id="checkout" required />
-      <button type="submit">Book Now</button>
-    </form>
+  <h2>Book Your Stay</h2>
+
+  <label for="name">Full Name</label>
+  <input type="text" id="name" placeholder="John Doe" required />
+
+  <label for="email">Email Address</label>
+  <input type="email" id="email" placeholder="john@example.com" required />
+
+  <label for="roomType">Room Type</label>
+  <select id="roomType" required>
+    <option value="">-- Select --</option>
+    <option value="Standard Room">Standard Room</option>
+    <option value="Deluxe Room">Deluxe Room</option>
+    <option value="Luxury Suite">Luxury Suite</option>
+  </select>
+
+  <label for="checkin">Check-in Date</label>
+  <input type="date" id="checkin" required />
+
+  <label for="checkout">Check-out Date</label>
+  <input type="date" id="checkout" required />
+
+  <button type="submit">Book Now</button>
+</form>
+
+<!-- Confirmation Box -->
+<div id="confirmation" class="alert" style="display:none;"></div>
+
   </section>
 
   <footer id="contact">
@@ -221,6 +248,12 @@
       alert("Thank you, " + name + "! Your " + room + " has been booked.");
       document.querySelector('form').reset();
     }
+    window.onload = () => {
+  const today = new Date().toISOString().split("T")[0];
+  document.getElementById("checkin").setAttribute("min", today);
+  document.getElementById("checkout").setAttribute("min", today);
+};
+
   </script>
 
 </body>
